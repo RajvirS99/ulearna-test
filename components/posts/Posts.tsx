@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { getExcerpt } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 
 interface Post {
   id: number;
@@ -14,6 +16,7 @@ interface Post {
 }
 
 function Posts() {
+  const [hoveredPost, setHoveredPost] = useState<number | undefined>();
   const { data } = useQuery({
     queryKey: ["posts"],
     queryFn: () => getPosts(),
@@ -23,9 +26,14 @@ function Posts() {
     <>
       {data?.map(({ title, body, id }: Post) => (
         <Link className="my-4" href={`/posts/${id}`} key={id}>
-          <div className="hover:bg-gray-200 py-12 px-4 rounded-md">
+          <div className="flex items-center justify-between hover:bg-gray-200 py-12 px-4 rounded-md" onMouseEnter={() => setHoveredPost(id)} onMouseLeave={() => setHoveredPost(undefined)}>
+            <div>
             <h3 className="text-xl font-semibold mb-4">{title}</h3>
             <p className="text-gray-600">{getExcerpt(body)}</p>
+            </div>
+            <span className={`bg-gray-200 rounded-full p-4 ${ hoveredPost === id ? 'rotate-45': ''}`}>
+              <ArrowUpRight className="w-6 h-6" />
+            </span>
           </div>
           <Separator />
         </Link>
