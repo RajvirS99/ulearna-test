@@ -39,7 +39,7 @@ function EditPostModal({ data }: EditPostModelProps) {
       },
       onError: () => {
         toast.error("Failed to update post");
-      }
+      },
     });
   };
 

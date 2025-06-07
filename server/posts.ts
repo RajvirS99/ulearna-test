@@ -27,13 +27,16 @@ export const editPost = async (post: {
   body: string;
   userId: number;
 }) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
-    method: "PUT",
-    body: JSON.stringify(post),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(post),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
     },
-  });
+  );
 
   const data = res.json();
   return data;

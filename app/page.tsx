@@ -1,6 +1,10 @@
 import Posts from "@/components/posts/Posts";
 import { getPosts } from "@/server/posts";
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 export default async function Home() {
   const queryClient = new QueryClient();
