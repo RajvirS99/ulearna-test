@@ -31,7 +31,7 @@ function Posts() {
             <h3 className="text-xl font-semibold mb-4">{title}</h3>
             <p className="text-gray-600">{getExcerpt(body)}</p>
             </div>
-            <span className={`bg-gray-200 rounded-full p-4 ${ hoveredPost === id ? 'rotate-45': ''}`}>
+            <span className={`bg-gray-200 rounded-full p-4 inline-block transform transition-transform duration-300 ease-in-out ${hoveredPost === id ? 'rotate-45' : 'rotate-0'}`}>
               <ArrowUpRight className="w-6 h-6" />
             </span>
           </div>
