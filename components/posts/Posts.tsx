@@ -3,6 +3,7 @@
 import { getPosts } from "@/server/posts";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { Separator } from "../ui/separator";
 
 interface Post {
   id: number;
@@ -20,12 +21,13 @@ function Posts() {
   return (
     <>
       {data?.map(({ title, body, id }: Post) => (
-        <div className="hover:bg-gray-200 py-12 px-4 rounded-md" key={id}>
-          <Link className="my-4" href={`/posts/${id}`}>
+        <Link className="my-4" href={`/posts/${id}`} key={id}>
+          <div className="hover:bg-gray-200 py-12 px-4 rounded-md">
             <h3 className="text-xl font-semibold mb-4">{title}</h3>
             <p className="text-gray-600">{body}</p>
-          </Link>
-        </div>
+          </div>
+          <Separator />
+        </Link>
       ))}
     </>
   );
