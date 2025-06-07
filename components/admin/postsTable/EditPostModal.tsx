@@ -6,6 +6,8 @@ import {
 import { Post } from "./columns";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import Tiptap from "@/components/Tiptap";
+import { Button } from "@/components/ui/button";
 
 interface EditPostModelProps {
   data: Post;
@@ -22,7 +24,7 @@ function EditPostModal({ data }: EditPostModelProps) {
         <DialogHeader>
           <DialogTitle>Edit Post</DialogTitle>
         </DialogHeader>
-        <form className="my-4" action="">
+        <form className="my-4 flex flex-col gap-4" action="">
           <div>
             <label htmlFor="postTitle">Title</label>
             <Input
@@ -33,6 +35,8 @@ function EditPostModal({ data }: EditPostModelProps) {
               }
             />
           </div>
+          <Tiptap description={formData.body} />
+          <Button className="cursor-pointer" type="submit">Submit</Button>
         </form>
       </DialogContent>
     </>
