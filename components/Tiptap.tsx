@@ -32,42 +32,42 @@ function Toolbar({ editor }: ToggleProps) {
       <Toggle
         size="sm"
         pressed={editor.isActive("heading")}
-        onPressedChange={editor.chain().focus().toggleHeading({ level: 2 }).run}
+        onPressedChange={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
       >
         <Heading2 className="h-2 w-2" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive("bold")}
-        onPressedChange={editor.chain().focus().toggleBold().run}
+        onPressedChange={() => editor.chain().focus().toggleBold().run()}
       >
         <Bold className="h-2 w-2" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive("italic")}
-        onPressedChange={editor.chain().focus().toggleItalic().run}
+        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
       >
         <Italic className="h-2 w-2" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive("strike")}
-        onPressedChange={editor.chain().focus().toggleStrike().run}
+        onPressedChange={() => editor.chain().focus().toggleStrike().run()}
       >
         <Strikethrough className="h-2 w-2" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive("bulletList")}
-        onPressedChange={editor.chain().focus().toggleBulletList().run}
+        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
       >
         <List className="h-2 w-2" />
       </Toggle>
       <Toggle
         size="sm"
         pressed={editor.isActive("orderedList")}
-        onPressedChange={editor.chain().focus().toggleOrderedList().run}
+        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
       >
         <ListOrdered className="h-2 w-2" />
       </Toggle>
@@ -105,9 +105,8 @@ function Tiptap({ description, handleChange, label }: TipTapProps) {
       },
     },
     onUpdate: ({ editor }) => {
-      // const json = editor.getJSON();
-      const html = editor.getHTML();
-      handleChange(html); // Call the handleChange function with the HTML content
+      // const json = editor.getJSON(); //if we want to get JSON format
+      handleChange(editor.getHTML());
     },
     immediatelyRender: false,
   });
