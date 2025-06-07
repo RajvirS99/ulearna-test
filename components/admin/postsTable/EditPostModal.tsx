@@ -80,9 +80,7 @@ function EditPostModal({ data }: EditPostModelProps) {
             }
           />
           <Button className="cursor-pointer" type="submit" disabled={isLoading}>
-            {isLoading ? (
-              <Loader2 className="animate-spin" />
-            ) : "Submit"}
+            {isLoading ? <Loader2 className="animate-spin" /> : "Submit"}
           </Button>
         </form>
       </DialogContent>

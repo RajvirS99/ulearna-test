@@ -32,7 +32,9 @@ function Toolbar({ editor }: ToggleProps) {
       <Toggle
         size="sm"
         pressed={editor.isActive("heading")}
-        onPressedChange={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        onPressedChange={() =>
+          editor.chain().focus().toggleHeading({ level: 2 }).run()
+        }
       >
         <Heading2 className="h-2 w-2" />
       </Toggle>
