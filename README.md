@@ -1,6 +1,6 @@
 # Ulearna-test
 
-This is a Next.js application named **Ulearna-test**. It serves as a test or development project using the latest features of Next.js.
+This is a Next.js application named **Ulearna-test**. It serves as a test or development project using the features of Next.js 15.
 
 ## 📦 Prerequisites
 
