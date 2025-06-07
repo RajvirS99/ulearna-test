@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DialogContent,
   DialogHeader,
@@ -8,6 +10,10 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import Tiptap from "@/components/Tiptap";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { editPost } from "@/server/posts";
+import { DialogDescription } from "@radix-ui/react-dialog";
+import { toast } from "sonner";
 
 interface EditPostModelProps {
   data: Post;
@@ -15,16 +21,36 @@ interface EditPostModelProps {
 
 function EditPostModal({ data }: EditPostModelProps) {
   const [formData, setFormData] = useState({
+    id: data.id,
     title: data.title,
     body: data.body,
+    userId: data.userId,
   });
+
+  const { mutate } = useMutation({
+    mutationFn: (values: Post) => editPost(values),
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate(formData, {
+      onSuccess: () => {
+        toast("Post updated successfully");
+      },
+      onError: () => {
+        toast.error("Failed to update post");
+      }
+    });
+  };
+
   return (
     <>
-      <DialogContent>
+      <DialogContent aria-describedby="edit-post-description">
         <DialogHeader>
           <DialogTitle>Edit Post</DialogTitle>
+          <DialogDescription />
         </DialogHeader>
-        <form className="my-4 flex flex-col gap-4" action="">
+        <form className="my-4 flex flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="postTitle">Title</label>
             <Input
@@ -35,8 +61,16 @@ function EditPostModal({ data }: EditPostModelProps) {
               }
             />
           </div>
-          <Tiptap description={formData.body} />
-          <Button className="cursor-pointer" type="submit">Submit</Button>
+          <Tiptap
+            label="Description"
+            description={formData.body}
+            handleChange={(value: string) =>
+              setFormData({ ...formData, body: value })
+            }
+          />
+          <Button className="cursor-pointer" type="submit">
+            Submit
+          </Button>
         </form>
       </DialogContent>
     </>

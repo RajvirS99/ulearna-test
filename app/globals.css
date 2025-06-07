@@ -120,14 +120,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-
-.tiptap ul {
-  list-style-type: disc;
-  padding-left: 20px;
-}
-
-.tiptap ol {
-  list-style-type: decimal;
-  padding-left: 20px;
-}

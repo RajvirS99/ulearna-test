@@ -11,7 +11,6 @@ import {
   Heading2,
 } from "lucide-react";
 import { Toggle } from "./ui/toggle";
-import { Heading } from "@tiptap/extension-heading";
 
 interface ToggleProps {
   editor: Editor | null;
@@ -19,6 +18,8 @@ interface ToggleProps {
 
 interface TipTapProps {
   description: string;
+  handleChange: (value: string) => void;
+  label: string;
 }
 
 function Toolbar({ editor }: ToggleProps) {
@@ -74,27 +75,48 @@ function Toolbar({ editor }: ToggleProps) {
   );
 }
 
-function Tiptap({ description }: TipTapProps) {
+function Tiptap({ description, handleChange, label }: TipTapProps) {
   const editor = useEditor({
-    extensions: [StarterKit, Heading.configure({
-      HTMLAttributes: {
-        class: "text-xl font-bold",
-        levels: [2],
-      }
-    })],
+    extensions: [
+      StarterKit.configure({
+        heading: {
+          HTMLAttributes: {
+            class: "text-xl font-bold",
+            levels: [2],
+          },
+        },
+        bulletList: {
+          HTMLAttributes: {
+            class: "list-disc pl-5",
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: "list-decimal pl-5",
+          },
+        },
+      }),
+    ],
     content: description,
     editorProps: {
       attributes: {
-        class: "rounded-md border min-h-[150px] border-input bg-transparent p-2",
+        class:
+          "rounded-md border min-h-[150px] border-input bg-transparent p-2",
       },
     },
+    onUpdate: ({ editor }) => {
+      // const json = editor.getJSON();
+      const html = editor.getHTML();
+      handleChange(html); // Call the handleChange function with the HTML content
+    },
+    immediatelyRender: false,
   });
 
   return (
     <div className="flex flex-col justify-stretch min-h-[250px] gap-2">
-      <label htmlFor="postDescription">Description</label>
+      {label && <label htmlFor={`post${label}`}>{label}</label>}
       <Toolbar editor={editor} />
-      <EditorContent id="postDescription" editor={editor} />
+      <EditorContent id={`post${label}`} editor={editor} />
     </div>
   );
 }
